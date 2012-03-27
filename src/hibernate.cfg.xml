@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/2ch</property>
+    <property name="hibernate.connection.username">2ch</property>
+    <property name="hibernate.connection.password">2ch</property>
+    <property name="hibernate.hbm2ddl.auto">update</property>
+    <property name="hibernate.use_sql_comments">true</property>
+    <property name="hibernate.show_sql">false</property>
+    <property name="hibernate.jdbc.use_get_generated_keys">true</property>
+    <mapping class="ru.twoch.entity.Thread" file="" jar="" package="" resource="ru/twoch/entity/Thread.hbm.xml"/>
+    <mapping class="ru.twoch.entity.Message" file="" jar="" package="" resource="ru/twoch/entity/Message.hbm.xml"/>
+  </session-factory>
+</hibernate-configuration>
