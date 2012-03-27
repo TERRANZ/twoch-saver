@@ -1,18 +1,17 @@
 package ru.twoch.gui;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
+import java.sql.Connection;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import ru.twoch.WorkerThread;
-import ru.twoch.entity.Message;
-import ru.twoch.entity.MessagePersistanceManager;
+import ru.twoch.entity.db.Message;
+import ru.twoch.entity.db.MessagePersistanceManager;
 
 /**
  *
@@ -21,8 +20,16 @@ import ru.twoch.entity.MessagePersistanceManager;
 public class MainWindow extends javax.swing.JFrame implements WorkIsDoneListener
 {
     /** Creates new form MainWindow */
+    private Connection c;
+
     public MainWindow()
     {
+        initComponents();
+    }
+
+    public MainWindow(Connection connection)
+    {
+        this.c = connection;
         initComponents();
     }
 
@@ -123,7 +130,7 @@ public class MainWindow extends javax.swing.JFrame implements WorkIsDoneListener
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
     {//GEN-HEADEREND:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        WorkerThread wt = new WorkerThread(jTextField1.getText(), this);
+        WorkerThread wt = new WorkerThread(jTextField1.getText(), this, c);
         Thread t = new Thread(wt);
         t.start();
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -144,7 +151,7 @@ public class MainWindow extends javax.swing.JFrame implements WorkIsDoneListener
                     ta_log.append("Saving: " + file.getName() + "." + System.lineSeparator());
                     fos = new FileOutputStream(file);
                     out = new OutputStreamWriter(fos, "UTF-8");
-                    List<Message> msgs = new MessagePersistanceManager().findMessagesByParent(Long.parseLong(te_thread_id.getText()));
+                    List<Message> msgs = new MessagePersistanceManager(c).findMessagesByParent(Long.parseLong(te_thread_id.getText()));
                     out.append("<html><body>");
                     for (Message msg : msgs)
                     {

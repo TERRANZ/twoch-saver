@@ -1,5 +1,6 @@
 package ru.twoch.entity;
 
+import ru.twoch.entity.db.Message;
 import java.util.List;
 
 /**
