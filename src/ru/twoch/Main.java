@@ -21,25 +21,25 @@ public class Main
      */
     public static void main(String[] args)
     {
-        System.out.println("Запуск...");
-        try
-        {
-            String driverName = "com.mysql.jdbc.Driver";
+	System.out.println("Запуск...");
+	try
+	{
+	    String driverName = "com.mysql.jdbc.Driver";
 
-            Class.forName(driverName);
+	    Class.forName(driverName);
 
-            // Create a connection to the database
-            String serverName = "127.0.0.1";
-            String mydatabase = "terraobjects";
-            String url = "jdbc:mysql://" + serverName + "/" + mydatabase;
-            String username = "scan";
-            String password = "scan";
+	    // Create a connection to the database
+	    String serverName = "127.0.0.1";
+	    String mydatabase = "terraobjects";
+	    String url = "jdbc:mysql://" + serverName + "/" + mydatabase;
+	    String username = "scan";
+	    String password = "scan";
 
-            Connection connection = DriverManager.getConnection(url, username, password);
-            if (connection != null)
-            {
-                MainWindow mw = new MainWindow(connection);
-                mw.setVisible(true);
+	    Connection connection = DriverManager.getConnection(url, username, password);
+	    if (connection != null)
+	    {
+		MainWindow mw = new MainWindow(connection);
+		mw.setVisible(true);
 //                TOTemplateHelper helper = new TOTemplateHelper(connection);
 //                try
 //                {
@@ -53,16 +53,16 @@ public class Main
 //                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
 //                }
 
-            } else
-            {
-                System.out.println("Can't connect to db!");
-            }
-        } catch (SQLException ex)
-        {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex)
-        {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        }
+	    } else
+	    {
+		System.out.println("Can't connect to db!");
+	    }
+	} catch (SQLException ex)
+	{
+	    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+	} catch (ClassNotFoundException ex)
+	{
+	    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+	}
     }
 }

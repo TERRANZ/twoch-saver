@@ -224,18 +224,6 @@ public class Message implements Serializable
         this.banned = banned;
     }
 
-    @PropGetter(id = Constants.MESSAGE_SIZE, type = TOPropertyType.TYPE_LONG)
-    public long getMsgsize()
-    {
-        return size;
-    }
-
-    @PropSetter(id = Constants.MESSAGE_SIZE, type = TOPropertyType.TYPE_LONG)
-    public void setMsgsize(long msgsize)
-    {
-        this.size = msgsize;
-    }
-
     @PropGetter(id = Constants.MESSAGE_CLOSED, type = TOPropertyType.TYPE_LONG)
     public long getClosed()
     {

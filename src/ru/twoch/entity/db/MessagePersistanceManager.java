@@ -3,6 +3,7 @@ package ru.twoch.entity.db;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
+import ru.terraobjects.entity.TOPropertyType;
 import ru.terraobjects.entity.dao.TOObjectsHelper;
 import ru.twoch.entity.constants.Constants;
 
@@ -21,7 +22,7 @@ public class MessagePersistanceManager
 
     public List<Message> findMessagesByParent(Long parentId)
     {
-        List<Integer> objects = helper.findObjectsByField(Constants.MESSAGE_TEMPLATE_ID, Constants.MESSAGE_PARENT, parentId);
+        List<Integer> objects = helper.findObjectsByField(Constants.MESSAGE_TEMPLATE_ID, Constants.MESSAGE_PARENT, parentId, TOPropertyType.TYPE_INT);
         if (objects.isEmpty())
         {
             return null;
@@ -36,7 +37,7 @@ public class MessagePersistanceManager
 
     public Message findById(Long id)
     {
-        List<Integer> objects = helper.findObjectsByField(Constants.MESSAGE_TEMPLATE_ID, Constants.MESSAGE_NUM, id);
+        List<Integer> objects = helper.findObjectsByField(Constants.MESSAGE_TEMPLATE_ID, Constants.MESSAGE_NUM, id, TOPropertyType.TYPE_INT);
         if (objects.isEmpty())
         {
             return null;
