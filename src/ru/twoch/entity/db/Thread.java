@@ -16,59 +16,58 @@ import ru.twoch.entity.constants.Constants;
 @TemplateId(id = Constants.THREAD_TEMPLATE_ID)
 public class Thread implements Serializable
 {
-    private static final long serialVersionUID = 1L;
-    private Long id;
-    private Long threadId;
-    private long startMessage;
+    private Integer id;
+    private Integer threadId;
+    private Integer startMessage;
 
     public Thread()
     {
     }
 
-    public Thread(Long id)
+    public Thread(Integer id)
     {
         this.id = id;
     }
 
-    public Thread(Long id, long startMessage, Long threadId)
+    public Thread(Integer id, Integer startMessage, Integer threadId)
     {
         this.id = id;
         this.startMessage = startMessage;
         this.threadId = threadId;
     }
 
-    @PropGetter(autoincrement = true, id = Constants.ID_PROP_ID, type = TOPropertyType.TYPE_LONG)       
-    public Long getId()
+    @PropGetter(autoincrement = true, id = Constants.ID_PROP_ID, type = TOPropertyType.TYPE_INT)
+    public Integer getId()
     {
         return id;
     }
 
-    @PropSetter(id = Constants.ID_PROP_ID, type = TOPropertyType.TYPE_LONG)
-    public void setId(Long id)
+    @PropSetter(id = Constants.ID_PROP_ID, type = TOPropertyType.TYPE_INT)
+    public void setId(Integer id)
     {
         this.id = id;
     }
 
-    @PropGetter(id = Constants.THREAD_START_MESSAGE, type = TOPropertyType.TYPE_LONG)
-    public long getStartMessage()
+    @PropGetter(id = Constants.THREAD_START_MESSAGE, type = TOPropertyType.TYPE_INT)
+    public Integer getStartMessage()
     {
         return startMessage;
     }
 
-    @PropSetter(id = Constants.THREAD_START_MESSAGE, type = TOPropertyType.TYPE_LONG)
-    public void setStartMessage(long startMessage)
+    @PropSetter(id = Constants.THREAD_START_MESSAGE, type = TOPropertyType.TYPE_INT)
+    public void setStartMessage(Integer startMessage)
     {
         this.startMessage = startMessage;
     }
 
-    @PropGetter(id = Constants.THREAD_ID, type = TOPropertyType.TYPE_LONG)
-    public Long getThreadId()
+    @PropGetter(id = Constants.THREAD_ID, type = TOPropertyType.TYPE_INT)
+    public Integer getThreadId()
     {
         return threadId;
     }
 
-    @PropSetter(id = Constants.THREAD_ID, type = TOPropertyType.TYPE_LONG)
-    public void setThreadId(Long threadId)
+    @PropSetter(id = Constants.THREAD_ID, type = TOPropertyType.TYPE_INT)
+    public void setThreadId(Integer threadId)
     {
         this.threadId = threadId;
     }

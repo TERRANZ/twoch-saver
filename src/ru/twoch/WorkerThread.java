@@ -66,7 +66,7 @@ public class WorkerThread implements Runnable
                         ru.twoch.entity.db.Thread t = (ru.twoch.entity.db.Thread) tpm.findById(m.getNum());
                         if (t == null)
                         {
-                            t = new ru.twoch.entity.db.Thread(0L, m.getNum(), 0L);
+                            t = new ru.twoch.entity.db.Thread(0, m.getNum(), 0);
                             tpm.insert(t);
                         }
                         //download thread and save it
@@ -80,14 +80,8 @@ public class WorkerThread implements Runnable
                             //System.out.println("Message : " + msg.getNum());
                             if (mpm.findById(msg.getNum()) == null)
                             {
-                                //System.out.println("Message " + msg.getNum() + " cached");
                                 result += "Message " + msg.getNum() + " for thread " + m.getNum() + " cached" + System.lineSeparator();
                                 mpm.insert(msg);
-//                                if (msg.getImage() != null)
-//                                {
-//                                    out.write(SERVER_URL + BOARD + msg.getImage());
-//                                    out.newLine();;
-//                                }
                             }
                         }
                     }

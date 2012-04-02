@@ -16,38 +16,38 @@ import ru.twoch.entity.constants.Constants;
 @TemplateId(id = Constants.MESSAGE_TEMPLATE_ID)
 public class Message implements Serializable
 {
-    private static final long serialVersionUID = 1L;
-    private long lasthit = 0L;
-    private Long num = 0L;
-    private long banned = 0L;
+    private static final Integer serialVersionUID = 1;
+    private Integer lasthit = 0;
+    private Integer num = 0;
+    private Integer banned = 0;
     private String date = "";
-    private long size = 0L;
-    private long timestamp = 0L;
-    private long closed = 0L;
+    private Integer size = 0;
+    private Integer timestamp = 0;
+    private Integer closed = 0;
     private String thumbnail = "";
-    private long parent = 0L;
+    private Integer parent = 0;
     private String video = "";
     private String subject = "";
     private String name = "";
     private String image = "";
     private String comment = "";
-    private long op = 0L;
-    private Long width = 0L;
+    private Integer op = 0;
+    private Integer width = 0;
     private String sticky = "";
-    private Long tn_width = 0L;
-    private Long height = 0L;
-    private Long tn_height = 0L;
+    private Integer tn_width = 0;
+    private Integer height = 0;
+    private Integer tn_height = 0;
     private String bannnned = "";
-    private Long id;
+    private Integer id;
 
-    @PropGetter(autoincrement = true, id = Constants.ID_PROP_ID, type = TOPropertyType.TYPE_LONG)
-    public Long getId()
+    @PropGetter(autoincrement = true, id = Constants.ID_PROP_ID, type = TOPropertyType.TYPE_INT)
+    public Integer getId()
     {
         return id;
     }
 
-    @PropSetter(id = Constants.ID_PROP_ID, type = TOPropertyType.TYPE_LONG)
-    public void setId(Long id)
+    @PropSetter(id = Constants.ID_PROP_ID, type = TOPropertyType.TYPE_INT)
+    public void setId(Integer id)
     {
         this.id = id;
     }
@@ -64,38 +64,38 @@ public class Message implements Serializable
         this.bannnned = bannnned;
     }
 
-    @PropGetter(id = Constants.MESSAGE_TN_HEIGHT, type = TOPropertyType.TYPE_LONG)
-    public Long getTn_height()
+    @PropGetter(id = Constants.MESSAGE_TN_HEIGHT, type = TOPropertyType.TYPE_INT)
+    public Integer getTn_height()
     {
         return tn_height;
     }
 
-    @PropSetter(id = Constants.MESSAGE_HEIGHT, type = TOPropertyType.TYPE_LONG)
-    public void setTn_height(Long tn_height)
+    @PropSetter(id = Constants.MESSAGE_HEIGHT, type = TOPropertyType.TYPE_INT)
+    public void setTn_height(Integer tn_height)
     {
         this.tn_height = tn_height;
     }
 
-    @PropGetter(id = Constants.MESSAGE_HEIGHT, type = TOPropertyType.TYPE_LONG)
-    public Long getHeight()
+    @PropGetter(id = Constants.MESSAGE_HEIGHT, type = TOPropertyType.TYPE_INT)
+    public Integer getHeight()
     {
         return height;
     }
 
-    @PropSetter(id = Constants.MESSAGE_HEIGHT, type = TOPropertyType.TYPE_LONG)
-    public void setHeight(Long height)
+    @PropSetter(id = Constants.MESSAGE_HEIGHT, type = TOPropertyType.TYPE_INT)
+    public void setHeight(Integer height)
     {
         this.height = height;
     }
 
-    @PropGetter(id = Constants.MESSAGE_TN_WIDTH, type = TOPropertyType.TYPE_LONG)
-    public Long getTn_width()
+    @PropGetter(id = Constants.MESSAGE_TN_WIDTH, type = TOPropertyType.TYPE_INT)
+    public Integer getTn_width()
     {
         return tn_width;
     }
 
-    @PropSetter(id = Constants.MESSAGE_TN_WIDTH, type = TOPropertyType.TYPE_LONG)
-    public void setTn_width(Long tn_width)
+    @PropSetter(id = Constants.MESSAGE_TN_WIDTH, type = TOPropertyType.TYPE_INT)
+    public void setTn_width(Integer tn_width)
     {
         this.tn_width = tn_width;
     }
@@ -124,38 +124,38 @@ public class Message implements Serializable
         this.date = date;
     }
 
-    @PropGetter(id = Constants.MESSAGE_SIZE, type = TOPropertyType.TYPE_LONG)
-    public long getSize()
+    @PropGetter(id = Constants.MESSAGE_SIZE, type = TOPropertyType.TYPE_INT)
+    public Integer getSize()
     {
         return size;
     }
 
-    @PropSetter(id = Constants.MESSAGE_SIZE, type = TOPropertyType.TYPE_LONG)
-    public void setSize(long size)
+    @PropSetter(id = Constants.MESSAGE_SIZE, type = TOPropertyType.TYPE_INT)
+    public void setSize(Integer size)
     {
         this.size = size;
     }
 
-    @PropGetter(id = Constants.MESSAGE_TIMESTAMP, type = TOPropertyType.TYPE_LONG)
-    public long getTimestamp()
+    @PropGetter(id = Constants.MESSAGE_TIMESTAMP, type = TOPropertyType.TYPE_INT)
+    public Integer getTimestamp()
     {
         return timestamp;
     }
 
-    @PropSetter(id = Constants.MESSAGE_TIMESTAMP, type = TOPropertyType.TYPE_LONG)
-    public void setTimestamp(long timestamp)
+    @PropSetter(id = Constants.MESSAGE_TIMESTAMP, type = TOPropertyType.TYPE_INT)
+    public void setTimestamp(Integer timestamp)
     {
         this.timestamp = timestamp;
     }
 
-    @PropGetter(id = Constants.MESSAGE_WIDTH, type = TOPropertyType.TYPE_LONG)
-    public Long getWidth()
+    @PropGetter(id = Constants.MESSAGE_WIDTH, type = TOPropertyType.TYPE_INT)
+    public Integer getWidth()
     {
         return width;
     }
 
-    @PropSetter(id = Constants.MESSAGE_WIDTH, type = TOPropertyType.TYPE_LONG)
-    public void setWidth(Long width)
+    @PropSetter(id = Constants.MESSAGE_WIDTH, type = TOPropertyType.TYPE_INT)
+    public void setWidth(Integer width)
     {
         this.width = width;
     }
@@ -164,12 +164,12 @@ public class Message implements Serializable
     {
     }
 
-    public Message(Long num)
+    public Message(Integer num)
     {
         this.num = num;
     }
 
-    public Message(Long num, long lasthit, long banned, String msgdate, long msgsize, long msgtimestamp, long closed, String thumbnail, long parent, String video, String subject, String name, String image, String comment, long op)
+    public Message(Integer num, Integer lasthit, Integer banned, String msgdate, Integer msgsize, Integer msgtimestamp, Integer closed, String thumbnail, Integer parent, String video, String subject, String name, String image, String comment, Integer op)
     {
         this.num = num;
         this.lasthit = lasthit;
@@ -188,50 +188,50 @@ public class Message implements Serializable
         this.op = op;
     }
 
-    @PropGetter(id = Constants.MESSAGE_LASTHIT, type = TOPropertyType.TYPE_LONG)
-    public long getLasthit()
+    @PropGetter(id = Constants.MESSAGE_LASTHIT, type = TOPropertyType.TYPE_INT)
+    public Integer getLasthit()
     {
         return lasthit;
     }
 
-    @PropSetter(id = Constants.MESSAGE_LASTHIT, type = TOPropertyType.TYPE_LONG)
-    public void setLasthit(long lasthit)
+    @PropSetter(id = Constants.MESSAGE_LASTHIT, type = TOPropertyType.TYPE_INT)
+    public void setLasthit(Integer lasthit)
     {
         this.lasthit = lasthit;
     }
 
-    @PropGetter(id = Constants.MESSAGE_NUM, type = TOPropertyType.TYPE_LONG)
-    public Long getNum()
+    @PropGetter(id = Constants.MESSAGE_NUM, type = TOPropertyType.TYPE_INT)
+    public Integer getNum()
     {
         return num;
     }
 
-    @PropSetter(id = Constants.MESSAGE_NUM, type = TOPropertyType.TYPE_LONG)
-    public void setNum(Long num)
+    @PropSetter(id = Constants.MESSAGE_NUM, type = TOPropertyType.TYPE_INT)
+    public void setNum(Integer num)
     {
         this.num = num;
     }
 
-    @PropGetter(id = Constants.MESSAGE_BANNED, type = TOPropertyType.TYPE_LONG)
-    public long getBanned()
+    @PropGetter(id = Constants.MESSAGE_BANNED, type = TOPropertyType.TYPE_INT)
+    public Integer getBanned()
     {
         return banned;
     }
 
-    @PropSetter(id = Constants.MESSAGE_BANNED, type = TOPropertyType.TYPE_LONG)
-    public void setBanned(long banned)
+    @PropSetter(id = Constants.MESSAGE_BANNED, type = TOPropertyType.TYPE_INT)
+    public void setBanned(Integer banned)
     {
         this.banned = banned;
     }
 
-    @PropGetter(id = Constants.MESSAGE_CLOSED, type = TOPropertyType.TYPE_LONG)
-    public long getClosed()
+    @PropGetter(id = Constants.MESSAGE_CLOSED, type = TOPropertyType.TYPE_INT)
+    public Integer getClosed()
     {
         return closed;
     }
 
-    @PropSetter(id = Constants.MESSAGE_CLOSED, type = TOPropertyType.TYPE_LONG)
-    public void setClosed(long closed)
+    @PropSetter(id = Constants.MESSAGE_CLOSED, type = TOPropertyType.TYPE_INT)
+    public void setClosed(Integer closed)
     {
         this.closed = closed;
     }
@@ -248,14 +248,14 @@ public class Message implements Serializable
         this.thumbnail = thumbnail;
     }
 
-    @PropGetter(id = Constants.MESSAGE_PARENT, type = TOPropertyType.TYPE_LONG)
-    public long getParent()
+    @PropGetter(id = Constants.MESSAGE_PARENT, type = TOPropertyType.TYPE_INT)
+    public Integer getParent()
     {
         return parent;
     }
 
-    @PropSetter(id = Constants.MESSAGE_PARENT, type = TOPropertyType.TYPE_LONG)
-    public void setParent(long parent)
+    @PropSetter(id = Constants.MESSAGE_PARENT, type = TOPropertyType.TYPE_INT)
+    public void setParent(Integer parent)
     {
         this.parent = parent;
     }
@@ -320,14 +320,14 @@ public class Message implements Serializable
         this.comment = comment;
     }
 
-    @PropGetter(id = Constants.MESSAGE_OP, type = TOPropertyType.TYPE_LONG)
-    public long getOp()
+    @PropGetter(id = Constants.MESSAGE_OP, type = TOPropertyType.TYPE_INT)
+    public Integer getOp()
     {
         return op;
     }
 
-    @PropSetter(id = Constants.MESSAGE_OP, type = TOPropertyType.TYPE_LONG)
-    public void setOp(long op)
+    @PropSetter(id = Constants.MESSAGE_OP, type = TOPropertyType.TYPE_INT)
+    public void setOp(Integer op)
     {
         this.op = op;
     }

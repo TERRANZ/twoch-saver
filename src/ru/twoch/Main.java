@@ -31,7 +31,7 @@ public class Main
 	    // Create a connection to the database
 	    String serverName = "127.0.0.1";
 	    String mydatabase = "terraobjects";
-	    String url = "jdbc:mysql://" + serverName + "/" + mydatabase;
+	    String url = "jdbc:mysql://" + serverName + ":3307/" + mydatabase;
 	    String username = "scan";
 	    String password = "scan";
 

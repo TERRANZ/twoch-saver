@@ -35,7 +35,7 @@ public class MessagePersistanceManager
         return msgs;
     }
 
-    public Message findById(Long id)
+    public Message findById(Integer id)
     {
         List<Integer> objects = helper.findObjectsByField(Constants.MESSAGE_TEMPLATE_ID, Constants.MESSAGE_NUM, id, TOPropertyType.TYPE_INT);
         if (objects.isEmpty())
