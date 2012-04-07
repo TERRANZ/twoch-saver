@@ -1,6 +1,8 @@
 package ru.twoch;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -25,6 +27,7 @@ import ru.twoch.gui.WorkIsDoneListener;
  */
 public class WorkerThread implements Runnable
 {
+
     private final static String SERVER_URL = "http://2-ch.so";
     private String BOARD;
     private final static String WAKABA_URL = "wakaba.json";
@@ -53,8 +56,8 @@ public class WorkerThread implements Runnable
             {
                 ThreadPersistanceManager tpm = new ThreadPersistanceManager(sqlConnection);
                 MessagePersistanceManager mpm = new MessagePersistanceManager(sqlConnection);
-                //FileWriter fstream = new FileWriter("images.txt", true);
-                //BufferedWriter out = new BufferedWriter(fstream);
+                FileWriter fstream = new FileWriter("images.txt", true);
+                BufferedWriter out = new BufferedWriter(fstream);
                 for (Threads ts : brd.getThreads())
                 {
                     for (Message m : ts.getPosts().get(0))
@@ -82,20 +85,25 @@ public class WorkerThread implements Runnable
                             {
                                 result += "Message " + msg.getNum() + " for thread " + m.getNum() + " cached" + "\n";
                                 mpm.insert(msg);
+                                if (msg.getImage() != null)
+                                    out.write(SERVER_URL + BOARD+msg.getImage()+"\n");
                             }
                         }
                     }
                 }
-                //out.close();
+                out.close();
+                fstream.close();
                 if (wdl != null)
                 {
                     wdl.done(result);
                 }
-            } else
+            }
+            else
             {
                 System.out.println("board is null");
             }
-        } catch (IOException ex)
+        }
+        catch (IOException ex)
         {
             Logger.getLogger(WorkerThread.class.getName()).log(Level.SEVERE, null, ex);
         }
