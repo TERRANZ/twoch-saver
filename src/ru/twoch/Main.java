@@ -16,30 +16,16 @@ import ru.twoch.gui.MainWindow;
  */
 public class Main
 {
+
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args)
     {
-	System.out.println("Запуск...");
-	try
-	{
-	    String driverName = "com.mysql.jdbc.Driver";
+        System.out.println("Запуск...");
 
-	    Class.forName(driverName);
-
-	    // Create a connection to the database
-	    String serverName = "127.0.0.1";
-	    String mydatabase = "terraobjects";
-	    String url = "jdbc:mysql://" + serverName + ":3306/" + mydatabase;
-	    String username = "scan";
-	    String password = "scan";
-
-	    Connection connection = DriverManager.getConnection(url, username, password);
-	    if (connection != null)
-	    {
-		MainWindow mw = new MainWindow(connection);
-		mw.setVisible(true);
+        MainWindow mw = new MainWindow();
+        mw.setVisible(true);
 //                TOTemplateHelper helper = new TOTemplateHelper(connection);
 //                try
 //                {
@@ -53,16 +39,6 @@ public class Main
 //                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
 //                }
 
-	    } else
-	    {
-		System.out.println("Can't connect to db!");
-	    }
-	} catch (SQLException ex)
-	{
-	    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-	} catch (ClassNotFoundException ex)
-	{
-	    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-	}
+
     }
 }
