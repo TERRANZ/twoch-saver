@@ -3,6 +3,7 @@ package ru.twoch.entity.db;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
+import ru.terraobjects.entity.TOObject;
 import ru.terraobjects.entity.TOPropertyType;
 import ru.terraobjects.entity.dao.TOObjectsHelper;
 import ru.twoch.entity.constants.Constants;
@@ -22,22 +23,22 @@ public class MessagePersistanceManager
 
     public List<Message> findMessagesByParent(Long parentId)
     {
-        List<Integer> objects = helper.findObjectsByField(Constants.MESSAGE_TEMPLATE_ID, Constants.MESSAGE_PARENT, parentId, TOPropertyType.TYPE_INT);
+        List<TOObject> objects = helper.findObjectsByField(Constants.MESSAGE_TEMPLATE_ID, Constants.MESSAGE_PARENT, parentId, TOPropertyType.TYPE_INT);
         if (objects.isEmpty())
         {
             return null;
         }
         List<Message> msgs = new ArrayList<Message>();
-        for (Integer oid : objects)
+        for (TOObject o : objects)
         {
-            msgs.add(helper.loadObject(Message.class, oid));
+            msgs.add(helper.loadObject(Message.class, o));
         }
         return msgs;
     }
 
     public Message findById(Integer id)
     {
-        List<Integer> objects = helper.findObjectsByField(Constants.MESSAGE_TEMPLATE_ID, Constants.MESSAGE_NUM, id, TOPropertyType.TYPE_INT);
+        List<TOObject> objects = helper.findObjectsByField(Constants.MESSAGE_TEMPLATE_ID, Constants.MESSAGE_NUM, id, TOPropertyType.TYPE_INT);
         if (objects.isEmpty())
         {
             return null;

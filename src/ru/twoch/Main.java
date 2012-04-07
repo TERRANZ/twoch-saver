@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import ru.terraobjects.entity.dao.TOObjectsManager;
+import ru.terraobjects.entity.manager.TOObjectsManager;
 import ru.terraobjects.entity.dao.TOTemplateHelper;
 import ru.twoch.entity.db.Message;
 import ru.twoch.gui.MainWindow;
@@ -31,7 +31,7 @@ public class Main
 	    // Create a connection to the database
 	    String serverName = "127.0.0.1";
 	    String mydatabase = "terraobjects";
-	    String url = "jdbc:mysql://" + serverName + ":3307/" + mydatabase;
+	    String url = "jdbc:mysql://" + serverName + ":3306/" + mydatabase;
 	    String username = "scan";
 	    String password = "scan";
 

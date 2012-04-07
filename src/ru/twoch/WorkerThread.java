@@ -60,7 +60,7 @@ public class WorkerThread implements Runnable
                     for (Message m : ts.getPosts().get(0))
                     {
                         //System.out.println("thread: " + m.getNum());
-                        result += "thread: " + m.getNum() + System.lineSeparator();
+                        result += "thread: " + m.getNum() + "\n";
                         //first message in thread - num of thread
 
                         ru.twoch.entity.db.Thread t = (ru.twoch.entity.db.Thread) tpm.findById(m.getNum());
@@ -80,7 +80,7 @@ public class WorkerThread implements Runnable
                             //System.out.println("Message : " + msg.getNum());
                             if (mpm.findById(msg.getNum()) == null)
                             {
-                                result += "Message " + msg.getNum() + " for thread " + m.getNum() + " cached" + System.lineSeparator();
+                                result += "Message " + msg.getNum() + " for thread " + m.getNum() + " cached" + "\n";
                                 mpm.insert(msg);
                             }
                         }

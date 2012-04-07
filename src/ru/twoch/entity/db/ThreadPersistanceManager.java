@@ -2,6 +2,7 @@ package ru.twoch.entity.db;
 
 import java.sql.Connection;
 import java.util.List;
+import ru.terraobjects.entity.TOObject;
 import ru.terraobjects.entity.TOPropertyType;
 import ru.terraobjects.entity.dao.TOObjectsHelper;
 import ru.twoch.entity.constants.Constants;
@@ -21,7 +22,7 @@ public class ThreadPersistanceManager
 
     public Thread findById(Integer id)
     {
-	List<Integer> objects = helper.findObjectsByField(Constants.THREAD_TEMPLATE_ID, Constants.THREAD_ID, id, TOPropertyType.TYPE_INT);
+	List<TOObject> objects = helper.findObjectsByField(Constants.THREAD_TEMPLATE_ID, Constants.THREAD_ID, id, TOPropertyType.TYPE_INT);
 	if (objects.isEmpty())
 	{
 	    return null;

@@ -148,7 +148,7 @@ public class MainWindow extends javax.swing.JFrame implements WorkIsDoneListener
                 try
                 {
                     File file = fc.getSelectedFile();
-                    ta_log.append("Saving: " + file.getName() + "." + System.lineSeparator());
+                    ta_log.append("Saving: " + file.getName() + "." + "\n");
                     fos = new FileOutputStream(file);
                     out = new OutputStreamWriter(fos, "UTF-8");
                     List<Message> msgs = new MessagePersistanceManager(c).findMessagesByParent(Long.parseLong(te_thread_id.getText()));
@@ -156,7 +156,7 @@ public class MainWindow extends javax.swing.JFrame implements WorkIsDoneListener
                     for (Message msg : msgs)
                     {
                         out.append(msg.getComment());
-                        ta_log.append("saved message : " + msg.getNum() + System.lineSeparator());
+                        ta_log.append("saved message : " + msg.getNum() + "\n");
                     }
                     out.append("</body></html>");
                 } catch (IOException ex)
@@ -176,7 +176,7 @@ public class MainWindow extends javax.swing.JFrame implements WorkIsDoneListener
             }
         } else
         {
-            ta_log.append("Save command cancelled by user." + System.lineSeparator());
+            ta_log.append("Save command cancelled by user." + "\n");
         }
     }//GEN-LAST:event_btnSaveThreadActionPerformed
 
