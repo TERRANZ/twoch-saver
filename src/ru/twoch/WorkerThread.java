@@ -81,7 +81,7 @@ public class WorkerThread implements Runnable
                         {
                             Message msg = msgsInThread.get(0);
                             //System.out.println("Message : " + msg.getNum());
-                            if (mpm.findById(msg.getNum()) == null)
+                            if (!mpm.isMessageExists(msg.getNum()))
                             {
                                 result += "Message " + msg.getNum() + " for thread " + m.getNum() + " cached" + "\n";
                                 mpm.insert(msg);
