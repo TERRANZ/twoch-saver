@@ -23,7 +23,7 @@ public class MessagePersistanceManager
 
     public List<Message> findMessagesByParent(Long parentId)
     {
-        List<TOObject> objects = helper.findObjectsByField(Constants.MESSAGE_TEMPLATE_ID, Constants.MESSAGE_PARENT, parentId, TOPropertyType.TYPE_INT);
+        List<TOObject> objects = helper.findObjectsByField(Constants.MESSAGE_PARENT, parentId, TOPropertyType.TYPE_INT);
         if (objects.isEmpty())
         {
             return null;
@@ -38,7 +38,7 @@ public class MessagePersistanceManager
 
     public Message findById(Integer id)
     {
-        List<TOObject> objects = helper.findObjectsByField(Constants.MESSAGE_TEMPLATE_ID, Constants.MESSAGE_NUM, id, TOPropertyType.TYPE_INT);
+        List<TOObject> objects = helper.findObjectsByField(Constants.MESSAGE_NUM, id, TOPropertyType.TYPE_INT);
         if (objects.isEmpty())
         {
             return null;

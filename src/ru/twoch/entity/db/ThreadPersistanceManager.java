@@ -22,7 +22,7 @@ public class ThreadPersistanceManager
 
     public Thread findById(Integer id)
     {
-	List<TOObject> objects = helper.findObjectsByField(Constants.THREAD_TEMPLATE_ID, Constants.THREAD_ID, id, TOPropertyType.TYPE_INT);
+	List<TOObject> objects = helper.findObjectsByField(Constants.THREAD_ID, id, TOPropertyType.TYPE_INT);
 	if (objects.isEmpty())
 	{
 	    return null;
