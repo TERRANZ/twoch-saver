@@ -1,13 +1,5 @@
 package ru.twoch;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import ru.terraobjects.entity.manager.TOObjectsManager;
-import ru.terraobjects.entity.dao.TOTemplateHelper;
-import ru.twoch.entity.db.Message;
 import ru.twoch.gui.MainWindow;
 
 /**
@@ -16,16 +8,22 @@ import ru.twoch.gui.MainWindow;
  */
 public class Main
 {
-
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args)
     {
-        System.out.println("Запуск...");
-
-        MainWindow mw = new MainWindow();
-        mw.setVisible(true);
+	System.out.println("Запуск...");
+	if (args.length == 0)
+	{
+	    MainWindow mw = new MainWindow();
+	    mw.setVisible(true);
+	} else
+	{
+	    WorkerThread wt = new WorkerThread(args[0], null, null);
+	    Thread t = new Thread(wt);
+	    t.start();
+	}
 //                TOTemplateHelper helper = new TOTemplateHelper(connection);
 //                try
 //                {

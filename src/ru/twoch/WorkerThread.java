@@ -27,7 +27,6 @@ import ru.twoch.gui.WorkIsDoneListener;
  */
 public class WorkerThread implements Runnable
 {
-
     private final static String SERVER_URL = "http://2-ch.so";
     private String BOARD;
     private final static String WAKABA_URL = "wakaba.json";
@@ -37,90 +36,93 @@ public class WorkerThread implements Runnable
 
     public WorkerThread(String board, WorkIsDoneListener wd, Connection conn)
     {
-        this.BOARD = board;
-        this.wdl = wd;
-        this.sqlConnection = conn;
+	this.BOARD = board;
+	this.wdl = wd;
+	this.sqlConnection = conn;
     }
 
     @Override
     public void run()
     {
-        try
-        {
-            String result = "";
-            URLConnection conn = new URL(SERVER_URL + BOARD + WAKABA_URL).openConnection();
-            String json = readStreamToString(conn.getInputStream(), "UTF-8");
-            //System.out.println("Received json: " + json);
-            Board brd = (Board) PojoMapper.fromJson(json, Board.class);
-            if (brd != null)
-            {
-                ThreadPersistanceManager tpm = new ThreadPersistanceManager(sqlConnection);
-                MessagePersistanceManager mpm = new MessagePersistanceManager(sqlConnection);
-                FileWriter fstream = new FileWriter("images.txt", true);
-                BufferedWriter out = new BufferedWriter(fstream);
-                for (Threads ts : brd.getThreads())
-                {
-                    for (Message m : ts.getPosts().get(0))
-                    {
-                        //System.out.println("thread: " + m.getNum());
-                        result += "thread: " + m.getNum() + "\n";
-                        //first message in thread - num of thread
+	try
+	{
+	    String result = "";
+	    URLConnection conn = new URL(SERVER_URL + BOARD + WAKABA_URL).openConnection();
+	    String json = readStreamToString(conn.getInputStream(), "UTF-8");
+	    //System.out.println("Received json: " + json);
+	    Board brd = (Board) PojoMapper.fromJson(json, Board.class);
+	    if (brd != null)
+	    {
+		ThreadPersistanceManager tpm = new ThreadPersistanceManager(sqlConnection);
+		MessagePersistanceManager mpm = new MessagePersistanceManager(sqlConnection);
+		FileWriter fstream = new FileWriter("images.txt", true);
+		BufferedWriter out = new BufferedWriter(fstream);
+		for (Threads ts : brd.getThreads())
+		{
+		    for (Message m : ts.getPosts().get(0))
+		    {
+			//System.out.println("thread: " + m.getNum());
+			result += "thread: " + m.getNum() + "\n";
+			//first message in thread - num of thread
 
-                        ru.twoch.entity.db.Thread t = (ru.twoch.entity.db.Thread) tpm.findById(m.getNum());
-                        if (t == null)
-                        {
-                            t = new ru.twoch.entity.db.Thread(0, m.getNum(), 0);
-                            tpm.insert(t);
-                        }
-                        //download thread and save it
-                        t = (ru.twoch.entity.db.Thread) tpm.findById(m.getNum());
-                        conn = new URL(SERVER_URL + BOARD + "/res/" + m.getNum().toString() + JSON).openConnection();
-                        json = readStreamToString(conn.getInputStream(), "UTF-8");
-                        ThreadDTO tdto = (ThreadDTO) PojoMapper.fromJson(json, ThreadDTO.class);
-                        for (List<Message> msgsInThread : tdto.getThread())
-                        {
-                            Message msg = msgsInThread.get(0);
-                            //System.out.println("Message : " + msg.getNum());
-                            if (!mpm.isMessageExists(msg.getNum()))
-                            {
-                                result += "Message " + msg.getNum() + " for thread " + m.getNum() + " cached" + "\n";
-                                mpm.insert(msg);
-                                if (msg.getImage() != null)
-                                    out.write(SERVER_URL + BOARD+msg.getImage()+"\n");
-                            }
-                        }
-                    }
-                }
-                out.close();
-                fstream.close();
-                if (wdl != null)
-                {
-                    wdl.done(result);
-                }
-            }
-            else
-            {
-                System.out.println("board is null");
-            }
-        }
-        catch (IOException ex)
-        {
-            Logger.getLogger(WorkerThread.class.getName()).log(Level.SEVERE, null, ex);
-        }
+			ru.twoch.entity.db.Thread t = (ru.twoch.entity.db.Thread) tpm.findById(m.getNum());
+			if (t == null)
+			{
+			    t = new ru.twoch.entity.db.Thread(0, m.getNum(), 0);
+			    tpm.insert(t);
+			}
+			//download thread and save it
+			t = (ru.twoch.entity.db.Thread) tpm.findById(m.getNum());
+			conn = new URL(SERVER_URL + BOARD + "/res/" + m.getNum().toString() + JSON).openConnection();
+			json = readStreamToString(conn.getInputStream(), "UTF-8");
+			ThreadDTO tdto = (ThreadDTO) PojoMapper.fromJson(json, ThreadDTO.class);
+			for (List<Message> msgsInThread : tdto.getThread())
+			{
+			    Message msg = msgsInThread.get(0);
+			    //System.out.println("Message : " + msg.getNum());
+			    if (!mpm.isMessageExists(msg.getNum()))
+			    {
+				result += "Message " + msg.getNum() + " for thread " + m.getNum() + " cached" + "\n";
+				mpm.insert(msg);
+				if (msg.getImage() != null)
+				{
+				    out.write(SERVER_URL + BOARD + msg.getImage() + "\n");
+				}
+			    }
+			}
+		    }
+		}
+		out.close();
+		fstream.close();
+		if (wdl != null)
+		{
+		    wdl.done(result);
+		} else
+		{
+		    System.out.print(result);
+		}
+	    } else
+	    {
+		System.out.println("board is null");
+	    }
+	} catch (IOException ex)
+	{
+	    Logger.getLogger(WorkerThread.class.getName()).log(Level.SEVERE, null, ex);
+	}
 
     }
 
     private String readStreamToString(InputStream in, String encoding)
-            throws IOException
+	    throws IOException
     {
-        StringBuffer b = new StringBuffer();
-        BufferedReader br = new BufferedReader(new InputStreamReader(in, encoding));
-        String s = "";
-        while ((s = br.readLine()) != null)
-        {
-            //System.out.println(s);
-            b.append(s);
-        }
-        return b.toString();
+	StringBuffer b = new StringBuffer();
+	BufferedReader br = new BufferedReader(new InputStreamReader(in, encoding));
+	String s = "";
+	while ((s = br.readLine()) != null)
+	{
+	    //System.out.println(s);
+	    b.append(s);
+	}
+	return b.toString();
     }
 }
