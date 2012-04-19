@@ -1,62 +1,32 @@
 package ru.twoch.entity.db;
 
-import java.sql.Connection;
-import java.util.ArrayList;
 import java.util.List;
-import ru.terraobjects.entity.TOObject;
-import ru.terraobjects.entity.TOPropertyType;
-import ru.terraobjects.entity.dao.TOObjectsHelper;
-import ru.twoch.entity.constants.Constants;
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
 
 /**
  *
  * @author terranz
  */
-public class MessagePersistanceManager
+public class MessagePersistanceManager extends PersistanceManager
 {
-    private TOObjectsHelper<Message> helper;
-
-    public MessagePersistanceManager(Connection c)
+    @Override
+    public Object findById(Long id)
     {
-	helper = new TOObjectsHelper(c);
+        Criteria c = session.createCriteria(Message.class);
+        c.add(Restrictions.eq("num", id));
+        return c.uniqueResult();
     }
 
     public List<Message> findMessagesByParent(Long parentId)
     {
-	List<Integer> objects = helper.findObjectsByField(Constants.MESSAGE_PARENT, parentId, TOPropertyType.TYPE_INT);
-	if (objects.isEmpty())
-	{
-	    return null;
-	}
-	List<Message> msgs = new ArrayList<Message>();
-	for (Integer o : objects)
-	{
-	    msgs.add(helper.loadObject(Message.class, o));
-	}
-	return msgs;
+        Criteria c = session.createCriteria(Message.class);
+        c.add(Restrictions.eq("parent", parentId));
+        return c.list();
     }
 
-    public Message findById(Integer id)
+    public Boolean isMessageExists(Long id)
     {
-	List<Integer> objects = helper.findObjectsByField(Constants.MESSAGE_NUM, id, TOPropertyType.TYPE_INT);
-	if (objects.isEmpty())
-	{
-	    return null;
-	}
-	return helper.loadObject(Message.class, objects.get(0));
-    }
-
-    public Boolean isMessageExists(Integer id)
-    {
-	if (helper.findObjectsByField(Constants.MESSAGE_NUM, id, TOPropertyType.TYPE_INT).isEmpty())
-	{
-	    return false;
-	}
-	return true;
-    }
-
-    public void insert(Message m)
-    {
-	helper.storeObject(m, true);
+        return session.createCriteria(Message.class).add(Restrictions.eq("num", id)).uniqueResult() != null;
     }
 }

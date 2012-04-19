@@ -145,7 +145,7 @@ public class MainWindow extends javax.swing.JFrame implements WorkIsDoneListener
                     ta_log.append("Saving: " + file.getName() + "." + "\n");
                     fos = new FileOutputStream(file);
                     out = new OutputStreamWriter(fos, "UTF-8");
-                    List<Message> msgs = new MessagePersistanceManager(c).findMessagesByParent(Long.parseLong(te_thread_id.getText()));
+                    List<Message> msgs = new MessagePersistanceManager().findMessagesByParent(Long.parseLong(te_thread_id.getText()));
                     out.append("<html><body>");
                     for (Message msg : msgs)
                     {

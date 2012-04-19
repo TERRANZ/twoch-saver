@@ -1,161 +1,184 @@
 package ru.twoch.entity.db;
 
 import java.io.Serializable;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-import ru.terraobjects.entity.TOPropertyType;
-import ru.terraobjects.entity.annotations.PropGetter;
-import ru.terraobjects.entity.annotations.PropSetter;
-import ru.terraobjects.entity.annotations.TemplateId;
-import ru.twoch.entity.constants.Constants;
 
 /**
  *
  * @author terranz
  */
+@Entity
+@Table(name = "message")
 @XmlRootElement
-@TemplateId(id = Constants.MESSAGE_TEMPLATE_ID)
+@NamedQueries(
+{
+    @NamedQuery(name = "Message.findAll", query = "SELECT m FROM Message m"),
+    @NamedQuery(name = "Message.findByLasthit", query = "SELECT m FROM Message m WHERE m.lasthit = :lasthit"),
+    @NamedQuery(name = "Message.findByNum", query = "SELECT m FROM Message m WHERE m.num = :num"),
+    @NamedQuery(name = "Message.findByBanned", query = "SELECT m FROM Message m WHERE m.banned = :banned"),
+    @NamedQuery(name = "Message.findByMsgdate", query = "SELECT m FROM Message m WHERE m.msgdate = :msgdate"),
+    @NamedQuery(name = "Message.findByMsgsize", query = "SELECT m FROM Message m WHERE m.msgsize = :msgsize"),
+    @NamedQuery(name = "Message.findByMsgtimestamp", query = "SELECT m FROM Message m WHERE m.msgtimestamp = :msgtimestamp"),
+    @NamedQuery(name = "Message.findByClosed", query = "SELECT m FROM Message m WHERE m.closed = :closed"),
+    @NamedQuery(name = "Message.findByThumbnail", query = "SELECT m FROM Message m WHERE m.thumbnail = :thumbnail"),
+    @NamedQuery(name = "Message.findByParent", query = "SELECT m FROM Message m WHERE m.parent = :parent"),
+    @NamedQuery(name = "Message.findByVideo", query = "SELECT m FROM Message m WHERE m.video = :video"),
+    @NamedQuery(name = "Message.findByName", query = "SELECT m FROM Message m WHERE m.name = :name"),
+    @NamedQuery(name = "Message.findByImage", query = "SELECT m FROM Message m WHERE m.image = :image"),
+    @NamedQuery(name = "Message.findByComment", query = "SELECT m FROM Message m WHERE m.comment = :comment"),
+    @NamedQuery(name = "Message.findByOp", query = "SELECT m FROM Message m WHERE m.op = :op")
+})
 public class Message implements Serializable
 {
-    private static final Integer serialVersionUID = 1;
-    private Integer lasthit = 0;
-    private Integer num = 0;
-    private Integer banned = 0;
+    private static final long serialVersionUID = 1L;
+    @Basic(optional = false)
+    @Column(name = "lasthit", nullable = false)
+    private long lasthit = 0L;
+    @Id
+    @Basic(optional = false)
+    @Column(name = "num", nullable = false)
+    private Long num = 0L;
+    @Basic(optional = false)
+    @Column(name = "banned", nullable = false)
+    private long banned = 0L;
+    @Basic(optional = false)
+    @Column(name = "msgdate", nullable = false, length = 60)
     private String date = "";
-    private Integer size = 0;
-    private Integer timestamp = 0;
-    private Integer closed = 0;
+    @Basic(optional = false)
+    @Column(name = "msgsize", nullable = false)
+    private long size = 0L;
+    @Basic(optional = false)
+    @Column(name = "msgtimestamp", nullable = false)
+    private long timestamp = 0L;
+    @Basic(optional = false)
+    @Column(name = "closed", nullable = false)
+    private long closed = 0L;
+    @Basic(optional = true)
+    @Column(name = "thumbnail", nullable = true, length = 150)
     private String thumbnail = "";
-    private Integer parent = 0;
+    @Basic(optional = false)
+    @Column(name = "parent", nullable = false)
+    private long parent = 0L;
+    @Basic(optional = true)
+    @Column(name = "video", nullable = true, length = 150)
     private String video = "";
+    @Basic(optional = true)
+    @Lob
+    @Column(name = "subject", nullable = true, length = 65535)
     private String subject = "";
+    @Basic(optional = true)
+    @Column(name = "name", nullable = true, length = 50)
     private String name = "";
+    @Basic(optional = true)
+    @Column(name = "image", nullable = true, length = 150)
     private String image = "";
+    @Basic(optional = false)
+    @Column(name = "comment", nullable = false, length = 1024)
     private String comment = "";
-    private Integer op = 0;
-    private Integer width = 0;
+    @Basic(optional = false)
+    @Column(name = "op", nullable = false)
+    private long op = 0L;
+    private Long width = 0L;
     private String sticky = "";
-    private Integer tn_width = 0;
-    private Integer height = 0;
-    private Integer tn_height = 0;
+    private Long tn_width = 0L;
+    private Long height = 0L;
+    private Long tn_height = 0L;
     private String bannnned = "";
-    private Integer id;
 
-    @PropGetter(autoincrement = true, id = Constants.ID_PROP_ID, type = TOPropertyType.TYPE_INT)
-    public Integer getId()
-    {
-        return id;
-    }
-
-    @PropSetter(id = Constants.ID_PROP_ID, type = TOPropertyType.TYPE_INT)
-    public void setId(Integer id)
-    {
-        this.id = id;
-    }
-
-    @PropGetter(id = Constants.MESSAGE_bannnned, type = TOPropertyType.TYPE_STR)
     public String getBannnned()
     {
         return bannnned;
     }
 
-    @PropSetter(id = Constants.MESSAGE_bannnned, type = TOPropertyType.TYPE_STR)
     public void setBannnned(String bannnned)
     {
         this.bannnned = bannnned;
     }
 
-    @PropGetter(id = Constants.MESSAGE_TN_HEIGHT, type = TOPropertyType.TYPE_INT)
-    public Integer getTn_height()
+    public Long getTn_height()
     {
         return tn_height;
     }
 
-    @PropSetter(id = Constants.MESSAGE_HEIGHT, type = TOPropertyType.TYPE_INT)
-    public void setTn_height(Integer tn_height)
+    public void setTn_height(Long tn_height)
     {
         this.tn_height = tn_height;
     }
 
-    @PropGetter(id = Constants.MESSAGE_HEIGHT, type = TOPropertyType.TYPE_INT)
-    public Integer getHeight()
+    public Long getHeight()
     {
         return height;
     }
 
-    @PropSetter(id = Constants.MESSAGE_HEIGHT, type = TOPropertyType.TYPE_INT)
-    public void setHeight(Integer height)
+    public void setHeight(Long height)
     {
         this.height = height;
     }
 
-    @PropGetter(id = Constants.MESSAGE_TN_WIDTH, type = TOPropertyType.TYPE_INT)
-    public Integer getTn_width()
+    public Long getTn_width()
     {
         return tn_width;
     }
 
-    @PropSetter(id = Constants.MESSAGE_TN_WIDTH, type = TOPropertyType.TYPE_INT)
-    public void setTn_width(Integer tn_width)
+    public void setTn_width(Long tn_width)
     {
         this.tn_width = tn_width;
     }
 
-    @PropGetter(id = Constants.MESSAGE_STICKY, type = TOPropertyType.TYPE_STR)
     public String getSticky()
     {
         return sticky;
     }
 
-    @PropSetter(id = Constants.MESSAGE_STICKY, type = TOPropertyType.TYPE_STR)
     public void setSticky(String sticky)
     {
         this.sticky = sticky;
     }
 
-    @PropGetter(id = Constants.MESSAGE_DATE, type = TOPropertyType.TYPE_STR)
     public String getDate()
     {
         return date;
     }
 
-    @PropSetter(id = Constants.MESSAGE_DATE, type = TOPropertyType.TYPE_STR)
     public void setDate(String date)
     {
         this.date = date;
     }
 
-    @PropGetter(id = Constants.MESSAGE_SIZE, type = TOPropertyType.TYPE_INT)
-    public Integer getSize()
+    public long getSize()
     {
         return size;
     }
 
-    @PropSetter(id = Constants.MESSAGE_SIZE, type = TOPropertyType.TYPE_INT)
-    public void setSize(Integer size)
+    public void setSize(long size)
     {
         this.size = size;
     }
 
-    @PropGetter(id = Constants.MESSAGE_TIMESTAMP, type = TOPropertyType.TYPE_INT)
-    public Integer getTimestamp()
+    public long getTimestamp()
     {
         return timestamp;
     }
 
-    @PropSetter(id = Constants.MESSAGE_TIMESTAMP, type = TOPropertyType.TYPE_INT)
-    public void setTimestamp(Integer timestamp)
+    public void setTimestamp(long timestamp)
     {
         this.timestamp = timestamp;
     }
 
-    @PropGetter(id = Constants.MESSAGE_WIDTH, type = TOPropertyType.TYPE_INT)
-    public Integer getWidth()
+    public Long getWidth()
     {
         return width;
     }
 
-    @PropSetter(id = Constants.MESSAGE_WIDTH, type = TOPropertyType.TYPE_INT)
-    public void setWidth(Integer width)
+    public void setWidth(Long width)
     {
         this.width = width;
     }
@@ -164,12 +187,12 @@ public class Message implements Serializable
     {
     }
 
-    public Message(Integer num)
+    public Message(Long num)
     {
         this.num = num;
     }
 
-    public Message(Integer num, Integer lasthit, Integer banned, String msgdate, Integer msgsize, Integer msgtimestamp, Integer closed, String thumbnail, Integer parent, String video, String subject, String name, String image, String comment, Integer op)
+    public Message(Long num, long lasthit, long banned, String msgdate, long msgsize, long msgtimestamp, long closed, String thumbnail, long parent, String video, String subject, String name, String image, String comment, long op)
     {
         this.num = num;
         this.lasthit = lasthit;
@@ -188,146 +211,152 @@ public class Message implements Serializable
         this.op = op;
     }
 
-    @PropGetter(id = Constants.MESSAGE_LASTHIT, type = TOPropertyType.TYPE_INT)
-    public Integer getLasthit()
+    public long getLasthit()
     {
         return lasthit;
     }
 
-    @PropSetter(id = Constants.MESSAGE_LASTHIT, type = TOPropertyType.TYPE_INT)
-    public void setLasthit(Integer lasthit)
+    public void setLasthit(long lasthit)
     {
         this.lasthit = lasthit;
     }
 
-    @PropGetter(id = Constants.MESSAGE_NUM, type = TOPropertyType.TYPE_INT)
-    public Integer getNum()
+    public Long getNum()
     {
         return num;
     }
 
-    @PropSetter(id = Constants.MESSAGE_NUM, type = TOPropertyType.TYPE_INT)
-    public void setNum(Integer num)
+    public void setNum(Long num)
     {
         this.num = num;
     }
 
-    @PropGetter(id = Constants.MESSAGE_BANNED, type = TOPropertyType.TYPE_INT)
-    public Integer getBanned()
+    public long getBanned()
     {
         return banned;
     }
 
-    @PropSetter(id = Constants.MESSAGE_BANNED, type = TOPropertyType.TYPE_INT)
-    public void setBanned(Integer banned)
+    public void setBanned(long banned)
     {
         this.banned = banned;
     }
 
-    @PropGetter(id = Constants.MESSAGE_CLOSED, type = TOPropertyType.TYPE_INT)
-    public Integer getClosed()
+    public String getMsgdate()
+    {
+        return date;
+    }
+
+    public void setMsgdate(String msgdate)
+    {
+        this.date = msgdate;
+    }
+
+    public long getMsgsize()
+    {
+        return size;
+    }
+
+    public void setMsgsize(long msgsize)
+    {
+        this.size = msgsize;
+    }
+
+    public long getMsgtimestamp()
+    {
+        return timestamp;
+    }
+
+    public void setMsgtimestamp(long msgtimestamp)
+    {
+        this.timestamp = msgtimestamp;
+    }
+
+    public long getClosed()
     {
         return closed;
     }
 
-    @PropSetter(id = Constants.MESSAGE_CLOSED, type = TOPropertyType.TYPE_INT)
-    public void setClosed(Integer closed)
+    public void setClosed(long closed)
     {
         this.closed = closed;
     }
 
-    @PropGetter(id = Constants.MESSAGE_THUMBNAIL, type = TOPropertyType.TYPE_STR)
     public String getThumbnail()
     {
         return thumbnail;
     }
 
-    @PropSetter(id = Constants.MESSAGE_THUMBNAIL, type = TOPropertyType.TYPE_STR)
     public void setThumbnail(String thumbnail)
     {
         this.thumbnail = thumbnail;
     }
 
-    @PropGetter(id = Constants.MESSAGE_PARENT, type = TOPropertyType.TYPE_INT)
-    public Integer getParent()
+    public long getParent()
     {
         return parent;
     }
 
-    @PropSetter(id = Constants.MESSAGE_PARENT, type = TOPropertyType.TYPE_INT)
-    public void setParent(Integer parent)
+    public void setParent(long parent)
     {
         this.parent = parent;
     }
 
-    @PropGetter(id = Constants.MESSAGE_VIDEO, type = TOPropertyType.TYPE_STR)
     public String getVideo()
     {
         return video;
     }
 
-    @PropSetter(id = Constants.MESSAGE_VIDEO, type = TOPropertyType.TYPE_STR)
     public void setVideo(String video)
     {
         this.video = video;
     }
 
-    @PropGetter(id = Constants.MESSAGE_SUBJECT, type = TOPropertyType.TYPE_STR)
     public String getSubject()
     {
         return subject;
     }
 
-    @PropSetter(id = Constants.MESSAGE_SUBJECT, type = TOPropertyType.TYPE_STR)
     public void setSubject(String subject)
     {
         this.subject = subject;
     }
 
-    @PropGetter(id = Constants.MESSAGE_NAME, type = TOPropertyType.TYPE_STR)
     public String getName()
     {
         return name;
     }
 
-    @PropSetter(id = Constants.MESSAGE_NAME, type = TOPropertyType.TYPE_STR)
     public void setName(String name)
     {
         this.name = name;
     }
 
-    @PropGetter(id = Constants.MESSAGE_IMAGE, type = TOPropertyType.TYPE_STR)
     public String getImage()
     {
         return image;
     }
 
-    @PropSetter(id = Constants.MESSAGE_IMAGE, type = TOPropertyType.TYPE_STR)
     public void setImage(String image)
     {
         this.image = image;
     }
 
-    @PropGetter(id = Constants.MESSAGE_COMMENT, type = TOPropertyType.TYPE_STR)
     public String getComment()
     {
         return comment;
     }
 
-    @PropSetter(id = Constants.MESSAGE_COMMENT, type = TOPropertyType.TYPE_STR)
     public void setComment(String comment)
     {
         this.comment = comment;
     }
 
-    @PropGetter(id = Constants.MESSAGE_OP, type = TOPropertyType.TYPE_INT)
-    public Integer getOp()
+    public long getOp()
     {
         return op;
     }
 
-    @PropSetter(id = Constants.MESSAGE_OP, type = TOPropertyType.TYPE_INT)
-    public void setOp(Integer op)
+    public void setOp(long op)
     {
         this.op = op;
     }

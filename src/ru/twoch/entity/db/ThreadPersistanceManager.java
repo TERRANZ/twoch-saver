@@ -1,37 +1,19 @@
 package ru.twoch.entity.db;
 
-import java.sql.Connection;
-import java.util.List;
-import ru.terraobjects.entity.TOObject;
-import ru.terraobjects.entity.TOPropertyType;
-import ru.terraobjects.entity.dao.TOObjectsHelper;
-import ru.twoch.entity.constants.Constants;
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
 
 /**
  *
  * @author terranz
  */
-public class ThreadPersistanceManager
+public class ThreadPersistanceManager extends PersistanceManager
 {
-    private TOObjectsHelper<Thread> helper;
-
-    public ThreadPersistanceManager(Connection conn)
+    @Override
+    public Object findById(Long id)
     {
-	helper = new TOObjectsHelper(conn);
-    }
-
-    public Thread findById(Integer id)
-    {
-	List<Integer> objects = helper.findObjectsByField(Constants.THREAD_ID, id, TOPropertyType.TYPE_INT);
-	if (objects.isEmpty())
-	{
-	    return null;
-	}
-	return helper.loadObject(Thread.class, objects.get(0));
-    }
-
-    public void insert(Thread t)
-    {
-	helper.storeObject(t, true);
+        Criteria c = session.createCriteria(TThread.class);
+        c.add(Restrictions.eq("startMessage", id));
+        return c.uniqueResult();
     }
 }
