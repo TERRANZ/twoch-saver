@@ -87,7 +87,10 @@ public class WorkerThread implements Runnable
                                 mpm.insert(msg);
                                 if (msg.getImage() != null)
                                 {
-                                    out.write(SERVER_URL + boardName + msg.getImage() + "\n");
+                                    String url = SERVER_URL + boardName + msg.getImage();
+                                    out.write(url + "\n");
+                                    Thread dt = new Thread(new DownloaderThread(SERVER_URL + boardName + msg.getImage()));
+                                    dt.start();
                                 }
                             }
                         }
