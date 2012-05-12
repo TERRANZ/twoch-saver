@@ -124,7 +124,7 @@ public class MainWindow extends javax.swing.JFrame implements WorkIsDoneListener
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
     {//GEN-HEADEREND:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        WorkerThread wt = new WorkerThread(jTextField1.getText(), this, c);
+        WorkerThread wt = new WorkerThread(jTextField1.getText(), this, true);
         Thread t = new Thread(wt);
         t.start();
     }//GEN-LAST:event_jButton1ActionPerformed

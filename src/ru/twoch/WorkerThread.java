@@ -1,15 +1,14 @@
 package ru.twoch;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
-import java.sql.Connection;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import ru.twoch.entity.Board;
@@ -33,13 +32,13 @@ public class WorkerThread implements Runnable
     private final static String WAKABA_URL = "wakaba.json";
     private final static String JSON = ".json";
     private WorkIsDoneListener wdl;
-    private Connection sqlConnection;
+    private Boolean isDownloadImages;
 
-    public WorkerThread(String board, WorkIsDoneListener wd, Connection conn)
+    public WorkerThread(String board, WorkIsDoneListener wd, Boolean downloadImages)
     {
         this.boardName = board;
         this.wdl = wd;
-        this.sqlConnection = conn;
+        isDownloadImages = downloadImages;
     }
 
     @Override
@@ -56,8 +55,9 @@ public class WorkerThread implements Runnable
             {
                 ThreadPersistanceManager tpm = new ThreadPersistanceManager();
                 MessagePersistanceManager mpm = new MessagePersistanceManager();
-                FileWriter fstream = new FileWriter("images.txt", true);
-                BufferedWriter out = new BufferedWriter(fstream);
+                //F//ileWriter fstream = new FileWriter("images.txt", true);
+                //BufferedWriter out = new BufferedWriter(fstream);
+                ExecutorService service = Executors.newFixedThreadPool(20);
                 for (Threads ts : brd.getThreads())
                 {
                     for (Message m : ts.getPosts().get(0))
@@ -88,16 +88,21 @@ public class WorkerThread implements Runnable
                                 if (msg.getImage() != null)
                                 {
                                     String url = SERVER_URL + boardName + msg.getImage();
-                                    out.write(url + "\n");
-                                    Thread dt = new Thread(new DownloaderThread(SERVER_URL + boardName + msg.getImage()));
-                                    dt.start();
+                                    // out.write(url + "\n");
+                                    if (isDownloadImages)
+                                    {
+                                        service.submit(new DownloaderThread(SERVER_URL + boardName + msg.getImage()));
+//                                        Thread dt = new Thread(new DownloaderThread(SERVER_URL + boardName + msg.getImage()));
+//                                        dt.start();
+                                    }
                                 }
                             }
                         }
                     }
-                }
-                out.close();
-                fstream.close();
+                }               
+                service.shutdown();
+                // out.close();
+                // fstream.close();
                 if (wdl != null)
                 {
                     wdl.done(result);

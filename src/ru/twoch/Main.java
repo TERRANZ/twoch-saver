@@ -13,17 +13,29 @@ public class Main
      */
     public static void main(String[] args)
     {
-	System.out.println("Запуск...");
-	if (args.length == 0)
-	{
-	    MainWindow mw = new MainWindow();
-	    mw.setVisible(true);
-	} else
-	{
-	    WorkerThread wt = new WorkerThread(args[0], null, null);
-	    Thread t = new Thread(wt);
-	    t.start();
-	}
+        System.out.println("Запуск...");
+        if (args.length == 0)
+        {
+            MainWindow mw = new MainWindow();
+            mw.setVisible(true);
+        } else
+        {
+            Boolean img = true;
+            String board = "";
+            for (int i = 0; i < args.length; i++)
+            {
+                if ("-noimg".equals(args[i]))
+                {
+                    img = false;
+                } else
+                {
+                    board = args[i];
+                }
+            }
+            WorkerThread wt = new WorkerThread(board, null, img);
+            Thread t = new Thread(wt);
+            t.start();
+        }
 //                TOTemplateHelper helper = new TOTemplateHelper(connection);
 //                try
 //                {

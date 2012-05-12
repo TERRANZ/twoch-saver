@@ -38,6 +38,7 @@ public class DownloaderThread implements Runnable
             ReadableByteChannel rbc = Channels.newChannel(google.openStream());
             FileOutputStream fos = new FileOutputStream(folder + url.substring(url.lastIndexOf("/")));
             fos.getChannel().transferFrom(rbc, 0, 1 << 24);
+            fos.close();
         } catch (IOException ex)
         {
             Logger.getLogger(DownloaderThread.class.getName()).log(Level.SEVERE, null, ex);
