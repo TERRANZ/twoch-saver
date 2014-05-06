@@ -56,14 +56,14 @@ public class ThreadDownloadAsyncTask implements Runnable {
                 conn = new URL(serverUrl + boardName + "/res/" + threadNum + ".json").openConnection();
                 conn.setConnectTimeout(10000);
                 SingleThreadDTO tdto = new JSONDeserializer<SingleThreadDTO>().deserialize(new InputStreamReader(conn.getInputStream()), SingleThreadDTO.class);
-                List<Pair<String, String>> images = new ArrayList<Pair<String, String>>();
+                List<Pair<String, String>> images = new ArrayList<>();
                 for (List<PostDTO> msgsInThread : tdto.thread) {
                     final PostDTO msg = msgsInThread.get(0);
                     if (!model.isMessageExists(msg.num)) {
                         model.createMessage(msg);
                         if (msg.image != null) {
                             if (downloadImages)
-                                images.add(new Pair<String, String>(serverUrl + boardName + msg.image, threadNum));
+                                images.add(new Pair<>(serverUrl + boardName + msg.image, threadNum));
                         }
                     }
                 }

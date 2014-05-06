@@ -30,7 +30,7 @@ public class WorkerThread implements Runnable {
     private Model model = new JPAModelImpl();
     private Logger logger = Logger.getLogger(this.getClass());
     private volatile int threads = 0;
-    private List<Pair<String, String>> imagesToDownload = new ArrayList<Pair<String, String>>();
+    private List<Pair<String, String>> imagesToDownload = new ArrayList<>();
     private CountDownLatch countDownLatch;
 
     public WorkerThread(String board, WorkIsDoneListener wd, Boolean downloadImages) {
@@ -95,13 +95,10 @@ public class WorkerThread implements Runnable {
                     }
                 };
 
-                UpdateImageCount updateImageCount = new UpdateImageCount() {
-                    @Override
-                    public void update(List<Pair<String, String>> images) {
-                        synchronized (imagesToDownload) {
-                            imagesToDownload.addAll(images);
-                            logger.info("Added " + images.size() + " to download list");
-                        }
+                UpdateImageCount updateImageCount = images -> {
+                    synchronized (imagesToDownload) {
+                        imagesToDownload.addAll(images);
+                        logger.info("Added " + images.size() + " to download list");
                     }
                 };
 
