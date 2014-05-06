@@ -1,10 +1,9 @@
 package ru.terra.twochsaver.twoch;
 
+import org.apache.log4j.Logger;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import ru.terra.twochsaver.Main;
 
 /**
@@ -12,7 +11,8 @@ import ru.terra.twochsaver.Main;
  * Time: 2:01
  */
 public class DownloadJob implements Job {
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
+    private Logger logger = Logger.getLogger(this.getClass());
+
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         logger.info("Starting download job");
