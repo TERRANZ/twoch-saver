@@ -14,4 +14,6 @@ public interface Model {
     public boolean isMessageExists(Long num);
 
     public void createMessage(PostDTO msg);
+
+    public void close();
 }

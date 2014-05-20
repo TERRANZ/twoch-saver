@@ -27,7 +27,7 @@ public class WorkerThread implements Runnable {
     private final static String JSON = ".json";
     private WorkIsDoneListener wdl;
     private Boolean isDownloadImages;
-    private Model model = new JPAModelImpl();
+    private Model model = JPAModelImpl.getInstance();
     private Logger logger = Logger.getLogger(this.getClass());
     private volatile int threads = 0;
     private List<Pair<String, String>> imagesToDownload = new ArrayList<>();
@@ -120,9 +120,6 @@ public class WorkerThread implements Runnable {
                                 updateImageCount));
                     }
                 }
-                //TODO: do not shutdown, cause exception if we allow download images
-                //     downloadService.shutdown();
-
             } else {
                 logger.info("Board is null");
 

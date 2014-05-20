@@ -29,7 +29,7 @@ public class ThreadDownloadAsyncTask implements Runnable {
     private WorkIsDoneListener workIsDoneListener;
     private UpdateImageCount updateImageCount;
     private Logger logger = Logger.getLogger(this.getClass());
-    private Model model = new JPAModelImpl();
+    private Model model = JPAModelImpl.getInstance();
 
 
     public ThreadDownloadAsyncTask(

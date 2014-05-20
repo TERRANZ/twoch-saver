@@ -14,10 +14,14 @@ import javax.persistence.Persistence;
  * Time: 16:35
  */
 public class JPAModelImpl implements Model {
-    TThreadJpaController tpm;
-    TMessageJpaController mpm;
+    private TThreadJpaController tpm;
+    private TMessageJpaController mpm;
 
-    public JPAModelImpl() {
+    public static Model getInstance() {
+        return new JPAModelImpl();
+    }
+
+    private JPAModelImpl() {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("2chPU");
         tpm = new TThreadJpaController(emf);
         mpm = new TMessageJpaController(emf);
@@ -45,5 +49,10 @@ public class JPAModelImpl implements Model {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void close() {
+
     }
 }
